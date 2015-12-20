@@ -1,4 +1,5 @@
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/JSONValueRX.svg)](https://img.shields.io/cocoapods/v/JSONValueRX.svg)
+[![Build Status](https://travis-ci.org/rexmas/JSONValue.svg)](https://travis-ci.org/rexmas/JSONValue)
 
 # JSONValue
 Simple JSON representation supporting subscripting and pattern matching.
