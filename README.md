@@ -13,6 +13,19 @@ enum JSONValue : CustomStringConvertible {
     case JSONNull()
 }
 ```
+#Requirements
+iOS 8.0+
+Swift 2.1+
+
+#Installation
+### CocoaPods
+```
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'JSONValueRX'
+```
+
 #Subscripting
 Supports `.` indexing
 ```swift
