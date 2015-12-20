@@ -1,3 +1,5 @@
+[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/JSONValueRX.svg)](https://img.shields.io/cocoapods/v/JSONValueRX.svg)
+
 # JSONValue
 Simple JSON representation supporting subscripting and pattern matching.
 JSONValue uses an algebraic datatype representation of JSON for type safety and pattern matching.
