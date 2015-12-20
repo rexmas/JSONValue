@@ -77,7 +77,7 @@ public protocol JSONEncodable {
 
 public protocol JSONable : JSONDecodable, JSONEncodable { }
 ```
-Out-of-the-box Encoding/Decoding
+The following support `JSONable` for out-of-the-box Encoding/Decoding.
 ```swift
 NSNull
 Double
