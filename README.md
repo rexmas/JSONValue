@@ -44,7 +44,9 @@ print(JSONValue.JSONNumber(1.0) == JSONValue.JSONNumber(1.0))
 ```
 
 #Hashable
-Inverted key/value pairs avoid collision.
+`extension JSONValue : Hashable`
+
+Inverted key/value pairs do not collide.
 ```swift
 let hashable1 = try! JSONValue(object: ["blah" : "zerp"])
 let hashable2 = try! JSONValue(object: ["zerp" : "blah"])
