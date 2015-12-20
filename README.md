@@ -88,7 +88,7 @@ Array
 String
 Dictionary
 ```
-`NSDate` uses built in `ISO` encoding/decoding from `.JSONString`
+`NSDate` uses built in `ISO` encoding/decoding to/from `.JSONString`
 
 # Contributing
 
