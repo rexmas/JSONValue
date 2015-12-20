@@ -11,6 +11,7 @@
 		17B583721C26253E005DBFA6 /* JSONValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B583711C26253E005DBFA6 /* JSONValueTests.swift */; };
 		17B5837D1C262621005DBFA6 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5837C1C262621005DBFA6 /* JSON.swift */; };
 		17B5837F1C262652005DBFA6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5837E1C262652005DBFA6 /* Utilities.swift */; };
+		17B583811C2628DB005DBFA6 /* JSONable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B583801C2628DB005DBFA6 /* JSONable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		17B583731C26253E005DBFA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17B5837C1C262621005DBFA6 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		17B5837E1C262652005DBFA6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		17B583801C2628DB005DBFA6 /* JSONable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				17B5837C1C262621005DBFA6 /* JSON.swift */,
+				17B583801C2628DB005DBFA6 /* JSONable.swift */,
 				17B5837E1C262652005DBFA6 /* Utilities.swift */,
 				17B583671C26253D005DBFA6 /* Info.plist */,
 			);
@@ -198,6 +201,7 @@
 			files = (
 				17B5837F1C262652005DBFA6 /* Utilities.swift in Sources */,
 				17B5837D1C262621005DBFA6 /* JSON.swift in Sources */,
+				17B583811C2628DB005DBFA6 /* JSONable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
