@@ -3,3 +3,8 @@ osx_image: xcode8
 xcode_project: JSONValue.xcodeproj
 xcode_scheme: JSONValue
 xcode_sdk: iphonesimulator10.0
+script:
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+  - xcodebuild -project JSONValue.xcodeproj -scheme JSONValue -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test
