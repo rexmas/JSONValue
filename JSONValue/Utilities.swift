@@ -27,7 +27,7 @@ extension Dictionary {
 
 // Consider using SwiftDate library if requirements increase.
 public extension DateFormatter {
-    public static let isoFormatter: DateFormatter = {
+    @nonobjc public static let isoFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -38,7 +38,7 @@ public extension DateFormatter {
 
 public extension Date {
     
-    @nonobjc public init?(isoString: String) {
+    public init?(isoString: String) {
         let dateFormatter = DateFormatter.isoFormatter
         guard let date = dateFormatter.date(from: isoString) else {
             return nil
@@ -46,7 +46,7 @@ public extension Date {
         self = date
     }
     
-    @nonobjc public var isoString: String {
+    public var isoString: String {
         let dateFromatter = DateFormatter.isoFormatter
         return dateFromatter.string(from: self)
     }
