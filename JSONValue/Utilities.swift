@@ -1,7 +1,7 @@
 import Foundation
 
 extension NSNumber {
-    public var isBool : Bool {
+    public var isBool: Bool {
         let trueNumber = NSNumber(value: true as Bool)
         let falseNumber = NSNumber(value: false as Bool)
         let trueObjCType = String(cString: trueNumber.objCType)

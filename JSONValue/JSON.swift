@@ -1,6 +1,6 @@
 import Foundation
 
-public enum JSONValue : CustomStringConvertible {
+public enum JSONValue: CustomStringConvertible {
     case jsonArray([JSONValue])
     case jsonObject([String : JSONValue])
     case jsonNumber(Double)
@@ -200,7 +200,7 @@ public enum JSONValue : CustomStringConvertible {
         }
     }
     
-    public var description : String {
+    public var description: String {
         switch self {
         case .jsonNull():
             return "JSONNull()"
@@ -221,7 +221,7 @@ public enum JSONValue : CustomStringConvertible {
 // MARK: - Protocols
 // MARK: - Hashable, Equatable
 
-extension JSONValue : Hashable {
+extension JSONValue: Hashable {
     
     static let prime = 31
     static let truePrime = 1231;
@@ -232,7 +232,7 @@ extension JSONValue : Hashable {
         case .jsonNull():
             return JSONValue.prime
         case let .jsonBool(b):
-            return b ? JSONValue.truePrime : JSONValue.falsePrime
+            return b ? JSONValue.truePrime: JSONValue.falsePrime
         case let .jsonString(s):
             return s.hashValue
         case let .jsonNumber(n):
@@ -249,7 +249,7 @@ extension JSONValue : Hashable {
     }
 }
 
-public func ==(lhs : JSONValue, rhs : JSONValue) -> Bool {
+public func ==(lhs: JSONValue, rhs: JSONValue) -> Bool {
     switch (lhs, rhs) {
     case (.jsonNull(), .jsonNull()):
         return true
@@ -272,7 +272,7 @@ public func ==(lhs : JSONValue, rhs : JSONValue) -> Bool {
     }
 }
 
-public func !=(lhs : JSONValue, rhs : JSONValue) -> Bool {
+public func !=(lhs: JSONValue, rhs: JSONValue) -> Bool {
     return !(lhs == rhs)
 }
 
@@ -282,13 +282,13 @@ public protocol JSONKeypath {
     var keyPath: String { get }
 }
 
-extension String : JSONKeypath {
+extension String: JSONKeypath {
     public var keyPath: String {
         return self
     }
 }
 
-extension Int : JSONKeypath {
+extension Int: JSONKeypath {
     public var keyPath: String {
         return String(self)
     }

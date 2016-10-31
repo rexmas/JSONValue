@@ -4,17 +4,17 @@ import Foundation
 
 public protocol JSONDecodable {
     associatedtype ConversionType = Self
-    static func fromJSON(_ x : JSONValue) -> ConversionType?
+    static func fromJSON(_ x: JSONValue) -> ConversionType?
 }
 
 public protocol JSONEncodable {
     associatedtype ConversionType
-    static func toJSON(_ x : ConversionType) -> JSONValue
+    static func toJSON(_ x: ConversionType) -> JSONValue
 }
 
-public protocol JSONable : JSONDecodable, JSONEncodable { }
+public protocol JSONable: JSONDecodable, JSONEncodable { }
 
-extension Dictionary : JSONable {
+extension Dictionary: JSONable {
     public typealias ConversionType = Dictionary<String, Value>
     public static func fromJSON(_ x: JSONValue) -> Dictionary.ConversionType? {
         switch x {
@@ -34,7 +34,7 @@ extension Dictionary : JSONable {
     }
 }
 
-extension Array : JSONable {
+extension Array: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Array? {
         switch x {
         case .jsonArray:
@@ -53,8 +53,8 @@ extension Array : JSONable {
     }
 }
 
-extension Bool : JSONable {
-    public static func fromJSON(_ x : JSONValue) -> Bool? {
+extension Bool: JSONable {
+    public static func fromJSON(_ x: JSONValue) -> Bool? {
         switch x {
         case let .jsonBool(n):
             return n
@@ -67,13 +67,13 @@ extension Bool : JSONable {
         }
     }
     
-    public static func toJSON(_ xs : Bool) -> JSONValue {
+    public static func toJSON(_ xs: Bool) -> JSONValue {
         return JSONValue.jsonBool(xs)
     }
 }
 
-extension Int : JSONable {
-    public static func fromJSON(_ x : JSONValue) -> Int? {
+extension Int: JSONable {
+    public static func fromJSON(_ x: JSONValue) -> Int? {
         switch x {
         case let .jsonNumber(n):
             return Int(n)
@@ -82,13 +82,13 @@ extension Int : JSONable {
         }
     }
     
-    public static func toJSON(_ xs : Int) -> JSONValue {
+    public static func toJSON(_ xs: Int) -> JSONValue {
         return JSONValue.jsonNumber(Double(xs))
     }
 }
 
-extension Double : JSONable {
-    public static func fromJSON(_ x : JSONValue) -> Double? {
+extension Double: JSONable {
+    public static func fromJSON(_ x: JSONValue) -> Double? {
         switch x {
         case let .jsonNumber(n):
             return n
@@ -97,13 +97,13 @@ extension Double : JSONable {
         }
     }
     
-    public static func toJSON(_ xs : Double) -> JSONValue {
+    public static func toJSON(_ xs: Double) -> JSONValue {
         return JSONValue.jsonNumber(xs)
     }
 }
 
-extension NSNumber : JSONable {
-    public class func fromJSON(_ x : JSONValue) -> NSNumber? {
+extension NSNumber: JSONable {
+    public class func fromJSON(_ x: JSONValue) -> NSNumber? {
         switch x {
         case let .jsonNumber(n):
             return NSNumber(value: n as Double)
@@ -112,13 +112,13 @@ extension NSNumber : JSONable {
         }
     }
     
-    public class func toJSON(_ x : NSNumber) -> JSONValue {
+    public class func toJSON(_ x: NSNumber) -> JSONValue {
         return JSONValue.jsonNumber(Double(x))
     }
 }
 
-extension String : JSONable {
-    public static func fromJSON(_ x : JSONValue) -> String? {
+extension String: JSONable {
+    public static func fromJSON(_ x: JSONValue) -> String? {
         switch x {
         case let .jsonString(n):
             return n
@@ -127,12 +127,12 @@ extension String : JSONable {
         }
     }
     
-    public static func toJSON(_ x : String) -> JSONValue {
+    public static func toJSON(_ x: String) -> JSONValue {
         return JSONValue.jsonString(x)
     }
 }
 
-extension Date : JSONable {
+extension Date: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Date? {
         switch x {
         case let .jsonString(string):
@@ -147,8 +147,8 @@ extension Date : JSONable {
     }
 }
 
-extension NSNull : JSONable {
-    public class func fromJSON(_ x : JSONValue) -> NSNull? {
+extension NSNull: JSONable {
+    public class func fromJSON(_ x: JSONValue) -> NSNull? {
         switch x {
         case .jsonNull():
             return NSNull()
@@ -157,7 +157,7 @@ extension NSNull : JSONable {
         }
     }
     
-    public class func toJSON(_ xs : NSNull) -> JSONValue {
+    public class func toJSON(_ xs: NSNull) -> JSONValue {
         return JSONValue.jsonNull()
     }
 }
