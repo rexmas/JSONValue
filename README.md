@@ -5,13 +5,13 @@
 Simple JSON representation supporting subscripting and pattern matching.
 JSONValue uses an algebraic datatype representation of JSON for type safety and pattern matching.
 ```swift
-enum JSONValue : CustomStringConvertible {
-    case JSONArray([JSONValue])
-    case JSONObject([String : JSONValue])
-    case JSONNumber(Double)
-    case JSONString(String)
-    case JSONBool(Bool)
-    case JSONNull()
+enum JSONValue: CustomStringConvertible {
+    case jsonArray([JSONValue])
+    case jsonObject([String : JSONValue])
+    case jsonNumber(Double)
+    case jsonString(String)
+    case jsonBool(Bool)
+    case jsonNull()
 }
 ```
 #Requirements
@@ -50,17 +50,17 @@ print(jsonVal["blerp.z"])
 
 jsonVal[["blerp.w"]] = try! JSONValue(object: "werp")
 print(jsonVal["blerp.w"])
-// Optional(JSONString(werp))
+// Optional(jsonString(werp))
 ```
 
 #Equatable
 ```swift
-print(JSONValue.JSONNumber(1.0) == JSONValue.JSONNumber(1.0))
+print(JSONValue.jsonNumber(1.0) == JSONValue.jsonNumber(1.0))
 // true
 ```
 
 #Hashable
-`extension JSONValue : Hashable`
+`extension JSONValue: Hashable`
 
 Inverted key/value pairs do not collide.
 ```swift
@@ -83,15 +83,15 @@ public static func decode(string: String) throws -> JSONValue
 ```swift
 public protocol JSONDecodable {
     typealias ConversionType = Self
-    static func fromJSON(x : JSONValue) -> ConversionType?
+    static func fromJSON(_ x: JSONValue) -> ConversionType?
 }
 
 public protocol JSONEncodable {
     typealias ConversionType
-    static func toJSON(x : ConversionType) -> JSONValue
+    static func toJSON(_ x: ConversionType) -> JSONValue
 }
 
-public protocol JSONable : JSONDecodable, JSONEncodable { }
+public protocol JSONable: JSONDecodable, JSONEncodable { }
 ```
 The following support `JSONable` for out-of-the-box Encoding/Decoding.
 ```swift
@@ -104,7 +104,7 @@ Array
 String
 Dictionary
 ```
-`NSDate` uses built in `ISO` encoding/decoding to/from `.JSONString`
+`NSDate` uses built in `ISO` encoding/decoding to/from `.jsonString`
 
 # Contributing
 
