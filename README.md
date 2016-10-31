@@ -72,11 +72,11 @@ print(hashable1.hashValue)
 print(hashable2.hashValue)
 // 2895177120076124296
 ```
-#Encoding/Decoding from String, NSData
+#Encoding/Decoding from String, Data
 ```swift
-public func encode() throws -> NSData
-public static func decode(data: NSData) throws -> JSONValue
-public static func decode(string: String) throws -> JSONValue
+public func encode() throws -> Data
+public static func decode(_ data: Data) throws -> JSONValue
+public static func decode(_ string: String) throws -> JSONValue
 ```
 
 #Custom Encoding/Decoding
@@ -99,12 +99,12 @@ NSNull
 Double
 Bool
 Int
-NSDate
+Date
 Array
 String
 Dictionary
 ```
-`NSDate` uses built in `ISO` encoding/decoding to/from `.jsonString`
+`Date` uses built in `ISO` encoding/decoding to/from `.jsonString`
 
 # Contributing
 
