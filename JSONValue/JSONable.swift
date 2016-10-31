@@ -34,11 +34,157 @@ extension Dictionary: JSONable {
     }
 }
 
+protocol AcceptsDouble {
+    init(_ other: Double)
+    static var maxDouble: Double { get }
+    static var minDouble: Double { get }
+}
+
+extension AcceptsDouble {
+    init?(safe double: Double) {
+        guard double > Self.minDouble && double < Self.maxDouble else {
+            return nil
+        }
+        self = Self(double)
+    }
+}
+
+extension Int: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension Int8: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension Int16: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension Int32: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension Int64: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension UInt: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension UInt8: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension UInt16: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension UInt32: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+extension UInt64: AcceptsDouble {
+    static var maxDouble: Double {
+        return Double(self.max)
+    }
+    static var minDouble: Double {
+        return Double(self.min)
+    }
+}
+
+struct ArrayMappingHelper<T: AcceptsDouble> {
+    func map(arr: [JSONValue]) -> [Any]? {
+        return try? arr.map {
+            guard case let val as Double = $0.values() else {
+                throw NSError()
+            }
+            guard let result = T(safe: val) else {
+                throw NSError()
+            }
+            return result
+        }
+    }
+}
+
 extension Array: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Array? {
         switch x {
-        case .jsonArray:
-            return x.values() as? Array
+        case let .jsonArray(xs):
+            
+            switch Element.self {
+            case is Int.Type:
+                let help = ArrayMappingHelper<Int>()
+                return help.map(arr: xs) as? Array
+            case is Int8.Type:
+                let help = ArrayMappingHelper<Int8>()
+                return help.map(arr: xs) as? Array
+            case is Int16.Type:
+                let help = ArrayMappingHelper<Int16>()
+                return help.map(arr: xs) as? Array
+            case is Int32.Type:
+                let help = ArrayMappingHelper<Int32>()
+                return help.map(arr: xs) as? Array
+            case is Int64.Type:
+                let help = ArrayMappingHelper<Int64>()
+                return help.map(arr: xs) as? Array
+            case is UInt.Type:
+                let help = ArrayMappingHelper<Int>()
+                return help.map(arr: xs) as? Array
+            case is UInt8.Type:
+                let help = ArrayMappingHelper<Int8>()
+                return help.map(arr: xs) as? Array
+            case is UInt16.Type:
+                let help = ArrayMappingHelper<Int16>()
+                return help.map(arr: xs) as? Array
+            case is UInt32.Type:
+                let help = ArrayMappingHelper<Int32>()
+                return help.map(arr: xs) as? Array
+            case is UInt64.Type:
+                let help = ArrayMappingHelper<Int64>()
+                return help.map(arr: xs) as? Array
+                
+            default:
+                return x.values() as? Array
+            }
+            
         default:
             return nil
         }

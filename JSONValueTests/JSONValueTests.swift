@@ -26,6 +26,25 @@ class JSONValueTests: XCTestCase {
         XCTAssertNil(jObj["herp"])
     }
     
+    func testArraySubscripting() {
+        let arr = [ 1, "derp" ] as [Any]
+        var jObj = try! JSONValue(array: arr)
+        
+        XCTAssertEqual(jObj[0], JSONValue.jsonNumber(1))
+        XCTAssertEqual(jObj[1], JSONValue.jsonString("derp"))
+        
+        jObj[2] = JSONValue.jsonString("yo")
+        
+        XCTAssertEqual(jObj[0], JSONValue.jsonNumber(1))
+        XCTAssertEqual(jObj[1], JSONValue.jsonString("derp"))
+        XCTAssertEqual(jObj[2], JSONValue.jsonString("yo"))
+        
+        jObj[0] = nil
+        
+        XCTAssertEqual(jObj[0], JSONValue.jsonString("derp"))
+        XCTAssertEqual(jObj[1], JSONValue.jsonString("yo"))
+    }
+    
     // MARK: - Hashable
     
     func testFalseAndTrueHashesAreNotEqual() {
@@ -92,5 +111,25 @@ class JSONValueTests: XCTestCase {
         XCTAssertNotEqual(jBool.hashValue, jString.hashValue)
         
         XCTAssertNotEqual(jNum.hashValue, jString.hashValue)
+    }
+    
+    // MARK: - Arrays
+    
+    func testArrayToFromJSONConvertsProperly() {
+        let array = [ 987 as Int, 65.4 ] as [Any]
+        let json = try! JSONValue(object: array)
+        XCTAssertEqual(json[0], JSONValue.jsonNumber(987.0))
+        XCTAssertEqual(json[1], JSONValue.jsonNumber(65.4))
+        let from = Array<Any>.fromJSON(json)!
+        print(from)
+        XCTAssertEqual(from[0] as! Double, Double(array[0] as! Int))
+        XCTAssertEqual(from[1] as! Double, array[1] as! Double)
+    }
+    
+    func testArrayOfIntJSONablesProperly() {
+        let array: [Int] = [987, 45, 1235]
+        let json = try! JSONValue(object: array)
+        let result = Array<Int>.fromJSON(json)!
+        XCTAssertEqual(array, result)
     }
 }
