@@ -38,7 +38,7 @@ public extension DateFormatter {
 
 public extension Date {
     
-    public init?(isoString: String) {
+    @nonobjc public init?(isoString: String) {
         let dateFormatter = DateFormatter.isoFormatter
         guard let date = dateFormatter.date(from: isoString) else {
             return nil
@@ -46,7 +46,7 @@ public extension Date {
         self = date
     }
     
-    public var isoString: String {
+    @nonobjc public var isoString: String {
         let dateFromatter = DateFormatter.isoFormatter
         return dateFromatter.string(from: self)
     }
