@@ -82,12 +82,12 @@ public static func decode(_ string: String) throws -> JSONValue
 #Custom Encoding/Decoding
 ```swift
 public protocol JSONDecodable {
-    typealias ConversionType = Self
+    associatedtype ConversionType = Self
     static func fromJSON(_ x: JSONValue) -> ConversionType?
 }
 
 public protocol JSONEncodable {
-    typealias ConversionType
+    associatedtype ConversionType
     static func toJSON(_ x: ConversionType) -> JSONValue
 }
 
