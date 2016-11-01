@@ -125,10 +125,43 @@ public enum JSONValue: CustomStringConvertible {
     
     public subscript(index: JSONKeypath) -> JSONValue? {
         get {
-            return self[index.keyPath]
+            switch self {
+            case .jsonObject(_):
+                return self[index.keyPath]
+            case .jsonArray(let arr):
+                switch index {
+                case let i as Int:
+                    guard i < arr.count else {
+                        return nil
+                    }
+                    return arr[i]
+                default:
+                    return self[index.keyPath]
+                }
+            default:
+                return nil
+            }
         }
         set(newValue) {
-            self[index.keyPath] = newValue
+            switch self {
+            case .jsonObject(_):
+                self[index.keyPath] = newValue
+            case .jsonArray(var arr):
+                switch index {
+                case let i as Int:
+                    if let newValue = newValue {
+                        arr.insert(newValue, at: i)
+                    }
+                    else {
+                        arr.remove(at: i)
+                    }
+                    self = .jsonArray(arr)
+                default:
+                    self[index.keyPath] = newValue
+                }
+            default:
+                return
+            }
         }
     }
     
