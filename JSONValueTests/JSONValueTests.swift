@@ -30,50 +30,50 @@ class JSONValueTests: XCTestCase {
         let arr = [ 1, "derp" ] as [Any]
         var jObj = try! JSONValue(array: arr)
         
-        XCTAssertEqual(jObj[0], JSONValue.jsonNumber(1))
-        XCTAssertEqual(jObj[1], JSONValue.jsonString("derp"))
+        XCTAssertEqual(jObj[0], JSONValue.number(1))
+        XCTAssertEqual(jObj[1], JSONValue.string("derp"))
         
-        jObj[2] = JSONValue.jsonString("yo")
+        jObj[2] = JSONValue.string("yo")
         
-        XCTAssertEqual(jObj[0], JSONValue.jsonNumber(1))
-        XCTAssertEqual(jObj[1], JSONValue.jsonString("derp"))
-        XCTAssertEqual(jObj[2], JSONValue.jsonString("yo"))
+        XCTAssertEqual(jObj[0], JSONValue.number(1))
+        XCTAssertEqual(jObj[1], JSONValue.string("derp"))
+        XCTAssertEqual(jObj[2], JSONValue.string("yo"))
         
         jObj[0] = nil
         
-        XCTAssertEqual(jObj[0], JSONValue.jsonString("derp"))
-        XCTAssertEqual(jObj[1], JSONValue.jsonString("yo"))
+        XCTAssertEqual(jObj[0], JSONValue.string("derp"))
+        XCTAssertEqual(jObj[1], JSONValue.string("yo"))
     }
     
     // MARK: - Hashable
     
     func testFalseAndTrueHashesAreNotEqual() {
-        let jFalse = JSONValue.jsonBool(false)
-        let jTrue = JSONValue.jsonBool(true)
+        let jFalse = JSONValue.bool(false)
+        let jTrue = JSONValue.bool(true)
         XCTAssertNotEqual(jFalse.hashValue, jTrue.hashValue)
     }
     
     func testHashesAreDeterministic() {
         
-        let jNull = JSONValue.jsonNull()
+        let jNull = JSONValue.null()
         XCTAssertEqual(jNull.hashValue, jNull.hashValue)
         
-        let jBool = JSONValue.jsonBool(false)
+        let jBool = JSONValue.bool(false)
         XCTAssertEqual(jBool.hashValue, jBool.hashValue)
         
-        let jNum = JSONValue.jsonNumber(3.0)
+        let jNum = JSONValue.number(3.0)
         XCTAssertEqual(jNum.hashValue, jNum.hashValue)
         
-        let jString = JSONValue.jsonString("some json")
+        let jString = JSONValue.string("some json")
         XCTAssertEqual(jString.hashValue, jString.hashValue)
         
-        let jDict = JSONValue.jsonObject([
-            "a string" : .jsonNumber(6.0),
-            "another" : .jsonNull()
+        let jDict = JSONValue.object([
+            "a string" : .number(6.0),
+            "another" : .null()
             ])
         XCTAssertEqual(jDict.hashValue, jDict.hashValue)
         
-        let jArray = JSONValue.jsonArray([ .jsonNumber(6.0), .jsonString("yo"), jDict ])
+        let jArray = JSONValue.array([ .number(6.0), .string("yo"), jDict ])
         XCTAssertEqual(jArray.hashValue, jArray.hashValue)
     }
     
@@ -81,8 +81,8 @@ class JSONValueTests: XCTestCase {
         let string1 = "blah"
         let string2 = "derp"
         
-        let obj1 = JSONValue.jsonObject([ string1 : .jsonString(string2) ])
-        let obj2 = JSONValue.jsonObject([ string2 : .jsonString(string1) ])
+        let obj1 = JSONValue.object([ string1 : .string(string2) ])
+        let obj2 = JSONValue.object([ string2 : .string(string1) ])
         
         XCTAssertNotEqual(obj1.hashValue, obj2.hashValue)
     }
@@ -91,17 +91,17 @@ class JSONValueTests: XCTestCase {
         let string1 = "blah"
         let string2 = "derp"
         
-        let arr1 = JSONValue.jsonArray([ .jsonString(string1), .jsonString(string2) ])
-        let arr2 = JSONValue.jsonArray([ .jsonString(string2), .jsonString(string1) ])
+        let arr1 = JSONValue.array([ .string(string1), .string(string2) ])
+        let arr2 = JSONValue.array([ .string(string2), .string(string1) ])
         
         XCTAssertNotEqual(arr1.hashValue, arr2.hashValue)
     }
     
     func test0NumberFalseAndNullHashesAreUnique() {
-        let jNull = JSONValue.jsonNull()
-        let jBool = JSONValue.jsonBool(false)
-        let jNum = JSONValue.jsonNumber(0.0)
-        let jString = JSONValue.jsonString("\0")
+        let jNull = JSONValue.null()
+        let jBool = JSONValue.bool(false)
+        let jNum = JSONValue.number(0.0)
+        let jString = JSONValue.string("\0")
         
         XCTAssertNotEqual(jNull.hashValue, jBool.hashValue)
         XCTAssertNotEqual(jNull.hashValue, jNum.hashValue)
@@ -118,8 +118,8 @@ class JSONValueTests: XCTestCase {
     func testArrayToFromJSONConvertsProperly() {
         let array = [ 987 as Int, 65.4 ] as [Any]
         let json = try! JSONValue(object: array)
-        XCTAssertEqual(json[0], JSONValue.jsonNumber(987.0))
-        XCTAssertEqual(json[1], JSONValue.jsonNumber(65.4))
+        XCTAssertEqual(json[0], JSONValue.number(987.0))
+        XCTAssertEqual(json[1], JSONValue.number(65.4))
         let from = Array<Any>.fromJSON(json)!
         print(from)
         XCTAssertEqual(from[0] as! Double, Double(array[0] as! Int))
