@@ -6,12 +6,12 @@ Simple JSON representation supporting subscripting and pattern matching.
 JSONValue uses an algebraic datatype representation of JSON for type safety and pattern matching.
 ```swift
 enum JSONValue: CustomStringConvertible {
-    case jsonArray([JSONValue])
-    case jsonObject([String : JSONValue])
-    case jsonNumber(Double)
-    case jsonString(String)
-    case jsonBool(Bool)
-    case jsonNull()
+    case array([JSONValue])
+    case object([String : JSONValue])
+    case number(Double)
+    case string(String)
+    case bool(Bool)
+    case null()
 }
 ```
 #Requirements
@@ -50,12 +50,12 @@ print(jsonVal["blerp.z"])
 
 jsonVal[["blerp.w"]] = try! JSONValue(object: "werp")
 print(jsonVal["blerp.w"])
-// Optional(jsonString(werp))
+// Optional(string(werp))
 ```
 
 #Equatable
 ```swift
-print(JSONValue.jsonNumber(1.0) == JSONValue.jsonNumber(1.0))
+print(JSONValue.number(1.0) == JSONValue.number(1.0))
 // true
 ```
 
@@ -104,7 +104,7 @@ Array
 String
 Dictionary
 ```
-`Date` uses built in `ISO` encoding/decoding to/from `.jsonString`
+`Date` uses built in `ISO` encoding/decoding to/from `.string`
 
 # Contributing
 
