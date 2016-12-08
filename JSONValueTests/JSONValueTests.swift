@@ -132,4 +132,48 @@ class JSONValueTests: XCTestCase {
         let result = Array<Int>.fromJSON(json)!
         XCTAssertEqual(array, result)
     }
+    
+    // MARK: - Int
+    
+    func testJsonStringCoercesToInt() {
+        let json = JSONValue.string("1")
+        XCTAssertEqual(Int.fromJSON(json), 1)
+        let garbage = JSONValue.string("a")
+        XCTAssertNil(Int.fromJSON(garbage))
+    }
+    
+    // MARK: - Double
+    
+    func testJsonStringCoercesToDouble() {
+        let json = JSONValue.string("1")
+        XCTAssertEqual(Double.fromJSON(json), 1.0)
+        let json2 = JSONValue.string("1.4")
+        XCTAssertEqual(Double.fromJSON(json2), 1.4)
+        let garbage = JSONValue.string("a")
+        XCTAssertNil(Double.fromJSON(garbage))
+    }
+    
+    // MARK: - NSNumber
+    
+    func testJsonStringCoercesToNSNumber() {
+        let json = JSONValue.string("1.6")
+        XCTAssertEqual(NSNumber.fromJSON(json), 1.6)
+        let garbage = JSONValue.string("a")
+        XCTAssertNil(Double.fromJSON(garbage))
+    }
+    
+    func testJsonBoolCoercesToNSNumber() {
+        let json = JSONValue.bool(true)
+        XCTAssertEqual(NSNumber.fromJSON(json), true)
+    }
+    
+    func testJsonBoolCoercesFromNSNumber() {
+        let n: NSNumber = true
+        XCTAssertEqual(NSNumber.toJSON(n), JSONValue.bool(true))
+    }
+    
+    func testJsonNumberCoercesFromNSNumber() {
+        let n: NSNumber = Double(1.2) as NSNumber
+        XCTAssertEqual(NSNumber.toJSON(n), JSONValue.number(1.2))
+    }
 }
