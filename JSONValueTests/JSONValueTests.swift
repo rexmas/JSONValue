@@ -176,4 +176,21 @@ class JSONValueTests: XCTestCase {
         let n: NSNumber = Double(1.2) as NSNumber
         XCTAssertEqual(NSNumber.toJSON(n), JSONValue.number(1.2))
     }
+    
+    // MARK: - NSDate
+    
+    func testJsonStringToNSDate() {
+        let val = "2017-02-01T05:33:40Z"
+        let json = JSONValue.string(val)
+        let result = Date.init(isoString: val)! as NSDate
+        XCTAssertEqual(NSDate.fromJSON(json), result)
+        
+        let valMilli = "2017-02-01T05:33:40.111Z"
+        let jsonMilli = JSONValue.string(valMilli)
+        let resultMilli = Date.init(isoString: valMilli)! as NSDate
+        XCTAssertEqual(NSDate.fromJSON(jsonMilli), resultMilli)
+        
+        let garbage = JSONValue.string("a")
+        XCTAssertNil(Double.fromJSON(garbage))
+    }
 }
