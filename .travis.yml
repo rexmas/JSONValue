@@ -7,4 +7,4 @@ script:
  - set -o pipefail
  - xcodebuild -version
  - xcodebuild -showsdks
- - xcodebuild -workspace JSONValue.xcodeproj -scheme JSONValue -sdk iphonesimulator -destination "OS=10.1,name=iPhone 7" ONLY_ACTIVE_ARCH=NO build test
+ - xcodebuild -project JSONValue.xcodeproj -scheme JSONValue -sdk iphonesimulator -destination "OS=10.1,name=iPhone 7" ONLY_ACTIVE_ARCH=NO build test
