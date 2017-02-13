@@ -1,10 +1,10 @@
 language: objective-c
-osx_image: xcode8
-xcode_project: JSONValue.xcodeproj
+osx_image: xcode8.2
+xcode_workspace: JSONValue.xcodeproj
 xcode_scheme: JSONValue
-xcode_sdk: iphonesimulator10.0
+xcode_sdk: iphonesimulator10.1
 script:
-  - set -o pipefail
-  - xcodebuild -version
-  - xcodebuild -showsdks
-  - xcodebuild -project JSONValue.xcodeproj -scheme JSONValue -sdk iphonesimulator -destination "OS=10.0,name=iPhone 7 Plus" ONLY_ACTIVE_ARCH=NO build test
+ - set -o pipefail
+ - xcodebuild -version
+ - xcodebuild -showsdks
+ - xcodebuild -workspace JSONValue.xcodeproj -scheme JSONValue -sdk iphonesimulator -destination "OS=10.1,name=iPhone 7" ONLY_ACTIVE_ARCH=NO build test
