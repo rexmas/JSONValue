@@ -193,4 +193,36 @@ class JSONValueTests: XCTestCase {
         let garbage = JSONValue.string("a")
         XCTAssertNil(Double.fromJSON(garbage))
     }
+    
+    // MARK: - String encoding
+    
+    func testsEncodeAsString() {
+        let dict = [ "derp" : [ "blerp" : [ "a", "b" ] ] ]
+        let jObj = try! JSONValue(dict: dict)
+        let jString = try! jObj.encodeAsString()
+        XCTAssertEqual(jString, "{\"derp\":{\"blerp\":[\"a\",\"b\"]}}")
+        
+        let quote = "\""
+        XCTAssertEqual(try! quote.jsonEncodedString(), "\"\\\"\"")
+        
+        let slash = "/"
+        XCTAssertEqual(try! slash.jsonEncodedString(), "\"\\/\"")
+        
+        let newline = "\n"
+        XCTAssertEqual(try! newline.jsonEncodedString(), "\"\\n\"")
+        
+        let returnCarriage = "\r"
+        XCTAssertEqual(try! returnCarriage.jsonEncodedString(), "\"\\r\"")
+        
+        let tab = "\t"
+        XCTAssertEqual(try! tab.jsonEncodedString(), "\"\\t\"")
+        
+        let thumbUp = "\u{1f44d}"
+        XCTAssertEqual(try! thumbUp.jsonEncodedString(), "\"👍\"")
+        
+        let complex = ["1\\\r" : ["[derp\n]👍"]]
+        let json = try! JSONValue(dict: complex)
+        let string = try! json.encodeAsString()
+        XCTAssertEqual(string, "{\"1\\\\\\r\":[\"[derp\\n]👍\"]}")
+    }
 }
