@@ -45,6 +45,13 @@ class JSONValueTests: XCTestCase {
         XCTAssertEqual(jObj[1], JSONValue.string("yo"))
     }
     
+    func testEarlyNullReturnsNullWhenSubscriptingKeyPath() {
+        let dict = [ "derp" : NSNull() ]
+        let jObj = try! JSONValue(dict: dict)
+        
+        XCTAssertEqual(jObj["derp.blerp"], JSONValue.null())
+    }
+    
     // MARK: - Hashable
     
     func testFalseAndTrueHashesAreNotEqual() {
