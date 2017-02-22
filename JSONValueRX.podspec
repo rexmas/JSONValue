@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "JSONValueRX"
-  s.version          = "1.5"
+  s.version          = "1.5.1"
   s.summary          = "Simple Swift JSON representation supporting subscripting and pattern matching."
 
 # This description is used to generate tags and improve search results.
