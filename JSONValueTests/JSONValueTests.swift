@@ -49,7 +49,7 @@ class JSONValueTests: XCTestCase {
         let dict = [ "derp" : NSNull() ]
         let jObj = try! JSONValue(dict: dict)
         
-        XCTAssertEqual(jObj["derp.blerp"], JSONValue.null())
+        XCTAssertEqual(jObj["derp.blerp"], JSONValue.null)
     }
     
     // MARK: - Hashable
@@ -62,7 +62,7 @@ class JSONValueTests: XCTestCase {
     
     func testHashesAreDeterministic() {
         
-        let jNull = JSONValue.null()
+        let jNull = JSONValue.null
         XCTAssertEqual(jNull.hashValue, jNull.hashValue)
         
         let jBool = JSONValue.bool(false)
@@ -76,7 +76,7 @@ class JSONValueTests: XCTestCase {
         
         let jDict = JSONValue.object([
             "a string" : .number(6.0),
-            "another" : .null()
+            "another" : .null
             ])
         XCTAssertEqual(jDict.hashValue, jDict.hashValue)
         
@@ -105,7 +105,7 @@ class JSONValueTests: XCTestCase {
     }
     
     func test0NumberFalseAndNullHashesAreUnique() {
-        let jNull = JSONValue.null()
+        let jNull = JSONValue.null
         let jBool = JSONValue.bool(false)
         let jNum = JSONValue.number(0.0)
         let jString = JSONValue.string("\0")
