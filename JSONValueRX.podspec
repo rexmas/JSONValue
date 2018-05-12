@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "JSONValueRX"
-  s.version          = "4.0.0"
+  s.version          = "4.0.1"
   s.summary          = "Simple Swift JSON representation supporting subscripting and pattern matching."
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'JSONValue/**/*'
+  s.source_files = 'Sources/**/*'
   s.resource_bundles = {
   }
 

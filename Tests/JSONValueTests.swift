@@ -1,5 +1,5 @@
 import XCTest
-import JSONValue
+import JSONValueRX
 
 class JSONValueTests: XCTestCase {
     
@@ -239,4 +239,27 @@ class JSONValueTests: XCTestCase {
         let string = try! json.encodeAsString()
         XCTAssertEqual(string, "{\"1\\\\\\r\":[\"[derp\\n]👍\"]}")
     }
+    
+    static var allTests = [
+        ("testSubscriptingWithDotsUsesComponentsForTraversal", testSubscriptingWithDotsUsesComponentsForTraversal),
+        ("testSubscriptingWithDotsUsesWholeStringIfComponentsFail", testSubscriptingWithDotsUsesWholeStringIfComponentsFail),
+        ("testSubscriptingReturnsNilIfAttributeIsNonExistent", testSubscriptingReturnsNilIfAttributeIsNonExistent),
+        ("testArraySubscripting", testArraySubscripting),
+        ("testEarlyNullReturnsNullWhenSubscriptingKeyPath", testEarlyNullReturnsNullWhenSubscriptingKeyPath),
+        ("testFalseAndTrueHashesAreNotEqual", testFalseAndTrueHashesAreNotEqual),
+        ("testHashesAreDeterministic", testHashesAreDeterministic),
+        ("testUniqueHashesForKeyValueReorderingOnJSONObject", testUniqueHashesForKeyValueReorderingOnJSONObject),
+        ("test0NumberFalseAndNullHashesAreUnique", test0NumberFalseAndNullHashesAreUnique),
+        ("testArrayToFromJSONConvertsProperly", testArrayToFromJSONConvertsProperly),
+        ("testArrayOfIntJSONablesProperly", testArrayOfIntJSONablesProperly),
+        ("testArrayOfInt8JSONablesProperly", testArrayOfInt8JSONablesProperly),
+        ("testJsonStringCoercesToInt", testJsonStringCoercesToInt),
+        ("testJsonStringCoercesToDouble", testJsonStringCoercesToDouble),
+        ("testJsonStringCoercesToNSNumber", testJsonStringCoercesToNSNumber),
+        ("testJsonBoolCoercesToNSNumber", testJsonBoolCoercesToNSNumber),
+        ("testJsonBoolCoercesFromNSNumber", testJsonBoolCoercesFromNSNumber),
+        ("testJsonNumberCoercesFromNSNumber", testJsonNumberCoercesFromNSNumber),
+        ("testJsonStringToNSDate", testJsonStringToNSDate),
+        ("testsEncodeAsString", testsEncodeAsString),
+        ]
 }
