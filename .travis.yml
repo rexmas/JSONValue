@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode9.3
 xcode_workspace: JSONValue.xcodeproj
-xcode_scheme: JSONValue
+xcode_scheme: JSONValue-Package
 xcode_sdk: iphonesimulator11.3
 script:
  - set -o pipefail
