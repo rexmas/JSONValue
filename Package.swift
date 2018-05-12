@@ -21,10 +21,10 @@ let package = Package(
         .target(
             name: "JSONValueRX",
             dependencies: [],
-            path: "JSONValue"),
+            path: "Sources"),
         .testTarget(
             name: "JSONValueTests",
             dependencies: ["JSONValueRX"],
-            path: "JSONValueTests"),
+            path: "Tests"),
     ]
 )

@@ -1,5 +1,5 @@
 import XCTest
-import JSONValue
+import JSONValueRX
 
 class JSONValueTests: XCTestCase {
     
