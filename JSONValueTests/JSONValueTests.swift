@@ -123,10 +123,10 @@ class JSONValueTests: XCTestCase {
     // MARK: - Arrays
     
     func testArrayToFromJSONConvertsProperly() {
-        let array = [ 987 as Int, 65.4 ] as [Any]
+        let array = [ 987 as Int, 65.4192387490172384970123894 ] as [Any]
         let json = try! JSONValue(object: array)
         XCTAssertEqual(json[0], JSONValue.number(987.0))
-        XCTAssertEqual(json[1], JSONValue.number(65.4))
+        XCTAssertEqual(json[1], JSONValue.number(65.4192387490172384970123894))
         let from = Array<Any>.fromJSON(json)!
         print(from)
         XCTAssertEqual(from[0] as! Double, Double(array[0] as! Int))
@@ -136,8 +136,15 @@ class JSONValueTests: XCTestCase {
     func testArrayOfIntJSONablesProperly() {
         let array: [Int] = [987, 45, 1235]
         let json = try! JSONValue(object: array)
-        let result = Array<Int>.fromJSON(json)!
+        let result = Array<Int>.fromJSON(json)
         XCTAssertEqual(array, result)
+    }
+    
+    func testArrayOfInt8JSONablesProperly() {
+        let array: [Int] = [987, 45, 1235]
+        let json = try! JSONValue(object: array)
+        let result = Array<Int8>.fromJSON(json)
+        XCTAssertNil(result)
     }
     
     // MARK: - Int

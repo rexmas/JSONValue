@@ -148,7 +148,7 @@ extension Array: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Array? {
         switch x {
         case let .array(xs):
-            
+            // TODO: Swift may have fixed integer overflow issues. Consider removing.
             switch Element.self {
             case is Int.Type:
                 let help = ArrayMappingHelper<Int>()
