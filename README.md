@@ -37,6 +37,9 @@ dependencies: [
 ]
 ```
 
+#### Build Xcode Project
+swift package generate-xcodeproj
+
 # Subscripting
 Supports `.` indexing
 ```swift
