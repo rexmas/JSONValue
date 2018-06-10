@@ -27,11 +27,12 @@ class JSONValueTests: XCTestCase {
     }
     
     func testArraySubscripting() {
-        let arr = [ 1, "derp" ] as [Any]
+        let arr = [ 1, "derp", [3, 5] ] as [Any]
         var jObj = try! JSONValue(array: arr)
         
         XCTAssertEqual(jObj[0], JSONValue.number(1))
         XCTAssertEqual(jObj[1], JSONValue.string("derp"))
+        XCTAssertEqual(jObj[2]?[1], JSONValue.number(5))
         
         jObj[2] = JSONValue.string("yo")
         
@@ -60,7 +61,7 @@ class JSONValueTests: XCTestCase {
         XCTAssertNotEqual(jFalse.hashValue, jTrue.hashValue)
     }
     
-    func testHashesAreDeterministic() {
+    func testHashesAreConsistent() {
         
         let jNull = JSONValue.null
         XCTAssertEqual(jNull.hashValue, jNull.hashValue)
@@ -247,7 +248,7 @@ class JSONValueTests: XCTestCase {
         ("testArraySubscripting", testArraySubscripting),
         ("testEarlyNullReturnsNullWhenSubscriptingKeyPath", testEarlyNullReturnsNullWhenSubscriptingKeyPath),
         ("testFalseAndTrueHashesAreNotEqual", testFalseAndTrueHashesAreNotEqual),
-        ("testHashesAreDeterministic", testHashesAreDeterministic),
+        ("testHashesAreDeterministic", testHashesAreConsistent),
         ("testUniqueHashesForKeyValueReorderingOnJSONObject", testUniqueHashesForKeyValueReorderingOnJSONObject),
         ("test0NumberFalseAndNullHashesAreUnique", test0NumberFalseAndNullHashesAreUnique),
         ("testArrayToFromJSONConvertsProperly", testArrayToFromJSONConvertsProperly),
