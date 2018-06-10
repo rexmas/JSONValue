@@ -9,11 +9,11 @@
 /* Begin PBXAggregateTarget section */
 		"JSONValue::JSONValuePackageTests::ProductTarget" /* JSONValuePackageTests */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_24 /* Build configuration list for PBXAggregateTarget "JSONValuePackageTests" */;
+			buildConfigurationList = OBJ_43 /* Build configuration list for PBXAggregateTarget "JSONValuePackageTests" */;
 			buildPhases = (
 			);
 			dependencies = (
-				OBJ_27 /* PBXTargetDependency */,
+				OBJ_46 /* PBXTargetDependency */,
 			);
 			name = JSONValuePackageTests;
 			productName = JSONValuePackageTests;
@@ -22,23 +22,23 @@
 
 /* Begin PBXBuildFile section */
 		OBJ_22 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_34 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* JSON.swift */; };
-		OBJ_35 /* JSONable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* JSONable.swift */; };
-		OBJ_36 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Utilities.swift */; };
-		OBJ_42 /* JSONValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* JSONValueTests.swift */; };
-		OBJ_43 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* XCTestManifests.swift */; };
-		OBJ_45 /* JSONValueRX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "JSONValue::JSONValueRX::Product" /* JSONValueRX.framework */; };
+		OBJ_28 /* JSONValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* JSONValueTests.swift */; };
+		OBJ_29 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* XCTestManifests.swift */; };
+		OBJ_31 /* JSONValueRX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "JSONValue::JSONValueRX::Product" /* JSONValueRX.framework */; };
+		OBJ_38 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* JSON.swift */; };
+		OBJ_39 /* JSONable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* JSONable.swift */; };
+		OBJ_40 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CDEBA40620A68066001AA356 /* PBXContainerItemProxy */ = {
+		CD152D4620CD8C87009549B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "JSONValue::JSONValueRX";
 			remoteInfo = JSONValueRX;
 		};
-		CDEBA40720A68066001AA356 /* PBXContainerItemProxy */ = {
+		CD152D4720CD8C88009549B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -59,18 +59,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_37 /* Frameworks */ = {
+		OBJ_30 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				OBJ_31 /* JSONValueRX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_44 /* Frameworks */ = {
+		OBJ_41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_45 /* JSONValueRX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,10 +121,10 @@
 /* Begin PBXNativeTarget section */
 		"JSONValue::JSONValueRX" /* JSONValueRX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_30 /* Build configuration list for PBXNativeTarget "JSONValueRX" */;
+			buildConfigurationList = OBJ_34 /* Build configuration list for PBXNativeTarget "JSONValueRX" */;
 			buildPhases = (
-				OBJ_33 /* Sources */,
-				OBJ_37 /* Frameworks */,
+				OBJ_37 /* Sources */,
+				OBJ_41 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -137,15 +137,15 @@
 		};
 		"JSONValue::JSONValueTests" /* JSONValueTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_38 /* Build configuration list for PBXNativeTarget "JSONValueTests" */;
+			buildConfigurationList = OBJ_24 /* Build configuration list for PBXNativeTarget "JSONValueTests" */;
 			buildPhases = (
-				OBJ_41 /* Sources */,
-				OBJ_44 /* Frameworks */,
+				OBJ_27 /* Sources */,
+				OBJ_30 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_46 /* PBXTargetDependency */,
+				OBJ_32 /* PBXTargetDependency */,
 			);
 			name = JSONValueTests;
 			productName = JSONValueTests;
@@ -187,9 +187,9 @@
 			projectRoot = "";
 			targets = (
 				"JSONValue::SwiftPMPackageDescription" /* JSONValuePackageDescription */,
-				"JSONValue::JSONValuePackageTests::ProductTarget" /* JSONValuePackageTests */,
-				"JSONValue::JSONValueRX" /* JSONValueRX */,
 				"JSONValue::JSONValueTests" /* JSONValueTests */,
+				"JSONValue::JSONValueRX" /* JSONValueRX */,
+				"JSONValue::JSONValuePackageTests::ProductTarget" /* JSONValuePackageTests */,
 			);
 		};
 /* End PBXProject section */
@@ -203,37 +203,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_33 /* Sources */ = {
+		OBJ_27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_34 /* JSON.swift in Sources */,
-				OBJ_35 /* JSONable.swift in Sources */,
-				OBJ_36 /* Utilities.swift in Sources */,
+				OBJ_28 /* JSONValueTests.swift in Sources */,
+				OBJ_29 /* XCTestManifests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_41 /* Sources */ = {
+		OBJ_37 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_42 /* JSONValueTests.swift in Sources */,
-				OBJ_43 /* XCTestManifests.swift in Sources */,
+				OBJ_38 /* JSON.swift in Sources */,
+				OBJ_39 /* JSONable.swift in Sources */,
+				OBJ_40 /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_27 /* PBXTargetDependency */ = {
+		OBJ_32 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = "JSONValue::JSONValueTests" /* JSONValueTests */;
-			targetProxy = CDEBA40720A68066001AA356 /* PBXContainerItemProxy */;
+			target = "JSONValue::JSONValueRX" /* JSONValueRX */;
+			targetProxy = CD152D4620CD8C87009549B0 /* PBXContainerItemProxy */;
 		};
 		OBJ_46 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = "JSONValue::JSONValueRX" /* JSONValueRX */;
-			targetProxy = CDEBA40620A68066001AA356 /* PBXContainerItemProxy */;
+			target = "JSONValue::JSONValueTests" /* JSONValueTests */;
+			targetProxy = CD152D4720CD8C88009549B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -242,7 +242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -251,7 +251,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -259,12 +259,36 @@
 		OBJ_25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = JSONValue.xcodeproj/JSONValueTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = JSONValueTests;
 			};
 			name = Debug;
 		};
 		OBJ_26 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = JSONValue.xcodeproj/JSONValueTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = JSONValueTests;
 			};
 			name = Release;
 		};
@@ -290,7 +314,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_31 /* Debug */ = {
+		OBJ_35 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -300,8 +324,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = JSONValue.xcodeproj/JSONValueRX_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_CFLAGS = "$(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = JSONValueRX;
@@ -313,7 +336,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_32 /* Release */ = {
+		OBJ_36 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -323,8 +346,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = JSONValue.xcodeproj/JSONValueRX_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_CFLAGS = "$(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = JSONValueRX;
@@ -335,25 +357,6 @@
 				TARGET_NAME = JSONValueRX;
 			};
 			name = Release;
-		};
-		OBJ_39 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = JSONValue.xcodeproj/JSONValueTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = JSONValueTests;
-			};
-			name = Debug;
 		};
 		OBJ_4 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -375,22 +378,15 @@
 			};
 			name = Release;
 		};
-		OBJ_40 /* Release */ = {
+		OBJ_44 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = JSONValue.xcodeproj/JSONValueTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = JSONValueTests;
+			};
+			name = Debug;
+		};
+		OBJ_45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 			};
 			name = Release;
 		};
@@ -404,7 +400,7 @@
 				OBJ_20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		OBJ_2 /* Build configuration list for PBXProject "JSONValue" */ = {
 			isa = XCConfigurationList;
@@ -413,34 +409,34 @@
 				OBJ_4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		OBJ_24 /* Build configuration list for PBXAggregateTarget "JSONValuePackageTests" */ = {
+		OBJ_24 /* Build configuration list for PBXNativeTarget "JSONValueTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_25 /* Debug */,
 				OBJ_26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		OBJ_30 /* Build configuration list for PBXNativeTarget "JSONValueRX" */ = {
+		OBJ_34 /* Build configuration list for PBXNativeTarget "JSONValueRX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_31 /* Debug */,
-				OBJ_32 /* Release */,
+				OBJ_35 /* Debug */,
+				OBJ_36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		OBJ_38 /* Build configuration list for PBXNativeTarget "JSONValueTests" */ = {
+		OBJ_43 /* Build configuration list for PBXAggregateTarget "JSONValuePackageTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_39 /* Debug */,
-				OBJ_40 /* Release */,
+				OBJ_44 /* Debug */,
+				OBJ_45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
