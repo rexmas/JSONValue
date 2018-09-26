@@ -14,7 +14,7 @@ enum JSONValueError: LocalizedError {
     }
 }
 
-public enum JSONValue: CustomStringConvertible {
+public enum JSONValue: CustomStringConvertible, Hashable {
     case array([JSONValue])
     case object([String : JSONValue])
     case number(Double)
@@ -306,62 +306,6 @@ public enum JSONValue: CustomStringConvertible {
 }
 
 // MARK: - Protocols
-// MARK: - Hashable, Equatable
-
-extension JSONValue: Hashable {
-    
-    static let prime = 31
-    static let truePrime = 1231;
-    static let falsePrime = 1237;
-    
-    public var hashValue: Int {
-        switch self {
-        case .null:
-            return JSONValue.prime
-        case let .bool(b):
-            return b ? JSONValue.truePrime: JSONValue.falsePrime
-        case let .string(s):
-            return s.hashValue
-        case let .number(n):
-            return n.hashValue
-        case let .object(obj):
-            return obj.reduce(1, { (accum: Int, pair: (key: String, val: JSONValue)) -> Int in
-                return accum.hashValue ^ pair.key.hashValue ^ pair.val.hashValue.byteSwapped
-            })
-        case let .array(xs):
-            return xs.reduce(3, { (accum: Int, val: JSONValue) -> Int in
-                return (accum.hashValue &* JSONValue.prime) ^ val.hashValue
-            })
-        }
-    }
-}
-
-public func ==(lhs: JSONValue, rhs: JSONValue) -> Bool {
-    switch (lhs, rhs) {
-    case (.null, .null):
-        return true
-    case let (.bool(l), .bool(r)) where l == r:
-        return true
-    case let (.string(l), .string(r)) where l == r:
-        return true
-    case let (.number(l), .number(r)) where l == r:
-        return true
-    case let (.object(l), .object(r))
-        where l.elementsEqual(r, by: {
-            (v1: (String, JSONValue), v2: (String, JSONValue)) in
-            v1.0 == v2.0 && v1.1 == v2.1
-        }):
-        return true
-    case let (.array(l), .array(r)) where l.elementsEqual(r, by: { $0 == $1 }):
-        return true
-    default:
-        return false
-    }
-}
-
-public func !=(lhs: JSONValue, rhs: JSONValue) -> Bool {
-    return !(lhs == rhs)
-}
 
 // MARK: - JSONKeyPath
 
