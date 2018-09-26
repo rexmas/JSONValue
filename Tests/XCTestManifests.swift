@@ -26,7 +26,7 @@ extension JSONValueTests {
     ]
 }
 
-#if !os(macOS)
+#if !(os(macOS) || os(iOS))
 public func __allTests() -> [XCTestCaseEntry] {
     return [
         testCase(JSONValueTests.__allTests),
