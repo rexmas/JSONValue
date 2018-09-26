@@ -1,5 +1,19 @@
 import Foundation
 
+enum JSONValueError: LocalizedError {
+    case objectFailedToConvertToJSON(objectType: Any.Type)
+    case encodeAsJSONStringFailed(object: AnyObject)
+    
+    var errorDescription: String? {
+        switch self {
+        case .objectFailedToConvertToJSON(let objectType):
+            return "Object of type \(objectType) failed to convert to JSON"
+        case .encodeAsJSONStringFailed(let object):
+            return "\(object) failed to convert to JSON string"
+        }
+    }
+}
+
 public enum JSONValue: CustomStringConvertible {
     case array([JSONValue])
     case object([String : JSONValue])
@@ -104,9 +118,7 @@ public enum JSONValue: CustomStringConvertible {
             self = .null
             
         default:
-            // TODO: Generate an enum of standard errors.
-            let userInfo = [ NSLocalizedFailureReasonErrorKey : "\(type(of: (object))) cannot be converted to JSON" ]
-            throw NSError(domain: "CRJSONErrorDomain", code: -1000, userInfo: userInfo)
+            throw JSONValueError.objectFailedToConvertToJSON(objectType: type(of: object))
         }
     }
     
@@ -125,8 +137,7 @@ public enum JSONValue: CustomStringConvertible {
         }()
         let data = try JSONSerialization.data(withJSONObject: object, options: options)
         guard var string = String(data: data, encoding: .utf8) else {
-            let userInfo = [ NSLocalizedFailureReasonErrorKey : "\(self) cannot be converted to JSON string" ]
-            throw NSError(domain: "JSONValueErrorDomain", code: -1000, userInfo: userInfo)
+            throw JSONValueError.encodeAsJSONStringFailed(object: object)
         }
         
         if isWrapped {
