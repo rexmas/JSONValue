@@ -290,17 +290,17 @@ public enum JSONValue: CustomStringConvertible, Hashable {
     public var description: String {
         switch self {
         case .null:
-            return "JSONNull()"
+            return "null"
         case let .bool(b):
-            return "JSONBool(\(b))"
+            return "\(b)"
         case let .string(s):
-            return "JSONString(\(s))"
+            return "\(s)"
         case let .number(n):
-            return "JSONNumber(\(n))"
+            return "\(n)"
         case let .object(o):
-            return "JSONObject(\(o))"
+            return "JSON(\(o))"
         case let .array(a):
-            return "JSONArray(\(a))"
+            return "JSON(\(a))"
         }
     }
 }
