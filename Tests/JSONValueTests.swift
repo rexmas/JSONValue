@@ -124,6 +124,11 @@ class JSONValueTests: XCTestCase {
     // MARK: - Codable
     
     func testCodable() {
+        guard #available(OSX 10.13, iOS 11.0, *) else {
+            XCTFail(".sortedKeys only available in MacOS 10.13+, iOS 11.0+")
+            return
+        }
+        
         let jsonString = """
         [
           {
@@ -210,22 +215,19 @@ class JSONValueTests: XCTestCase {
                 ])
             ]))
         
-        if #available(OSX 10.13, iOS 11.0, *) {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .sortedKeys
-            let jsonData = try! encoder.encode(jsonValue)
-            let jsonEncodedString = String(data: jsonData, encoding: .utf8)!
-            // To compare against our original string we must first format it correctly.
-            // Pass it through old JSON encode/decode to do so.
-            let data = jsonString.data(using: .utf8)
-            let jsonObj = try! JSONSerialization.jsonObject(with: data!, options: [])
-            let jsonFormattedData = try! JSONSerialization.data(withJSONObject: jsonObj, options: [.sortedKeys])
-            let jsonFormattedString = String(data: jsonFormattedData, encoding: .utf8)!
-            
-            XCTAssertEqual(jsonEncodedString, jsonFormattedString)
-        } else {
-            XCTFail(".sortedKeys only available in MacOS 10.13+, iOS 11.0+")
-        }
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        let jsonData = try! encoder.encode(jsonValue)
+        let jsonEncodedString = String(data: jsonData, encoding: .utf8)!
+        // To compare against our original string we must first format it correctly.
+        // Pass it through old JSON encode/decode to do so.
+        let data = jsonString.data(using: .utf8)
+        let jsonObj = try! JSONSerialization.jsonObject(with: data!, options: [])
+        let jsonFormattedData = try! JSONSerialization.data(withJSONObject: jsonObj, options: [.sortedKeys])
+        let jsonFormattedString = String(data: jsonFormattedData, encoding: .utf8)!
+        
+        XCTAssertEqual(jsonEncodedString, jsonFormattedString)
     }
     
     func testDecodeToStruct() {
