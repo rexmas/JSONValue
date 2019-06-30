@@ -121,6 +121,177 @@ class JSONValueTests: XCTestCase {
         XCTAssertNotEqual(jNum.hashValue, jString.hashValue)
     }
     
+    // MARK: - Codable
+    
+    func testCodable() {
+        let jsonString = """
+        [
+          {
+            "_id": "5d140a3fb5bbd5eaa41b512e",
+            "guid": "9b0f3717-2f21-4a81-8902-92d2278a92f0",
+            "isActive": false,
+            "age": 30,
+            "name": {
+              "first": "Rosales",
+              "last": "Mcintosh"
+            },
+            "company": null,
+            "latitude": "-58.182284",
+            "longitude": "-159.420718",
+            "tags": [
+              "aute",
+              "aute",
+            ],
+            "range": [
+              0,
+              1,
+              2,
+              3,
+            ],
+            "friends": [
+              {
+                "id": 0,
+                "name": "Gail Hoover"
+              },
+              {
+                "id": 1,
+                "name": "Luisa Galloway"
+              },
+              {
+                "id": 2,
+                "name": "Turner Strickland"
+              }
+            ],
+            "greeting": "Hello, Rosales! You have 7 unread messages.",
+            "favoriteFruit": "apple"
+          }
+        ]
+        """
+        let jsonValue = try! JSONDecoder().decode(JSONValue.self, from: jsonString.data(using: .utf8)!)
+        XCTAssertEqual(jsonValue, .array([
+            .object([
+                "_id": .string("5d140a3fb5bbd5eaa41b512e"),
+                "guid": .string("9b0f3717-2f21-4a81-8902-92d2278a92f0"),
+                "isActive": .bool(false),
+                "age": .number(30),
+                "name": .object([
+                    "first": .string("Rosales"),
+                    "last": .string("Mcintosh")
+                    ]),
+                    "company": JSONValue.null,
+                    "latitude": .string("-58.182284"),
+                    "longitude": .string("-159.420718"),
+                    "tags": .array([
+                      .string("aute"),
+                      .string("aute")
+                    ]),
+                    "range": .array([
+                      .number(0),
+                      .number(1),
+                      .number(2),
+                      .number(3)
+                    ]),
+                    "friends": .array([
+                      .object([
+                        "id": .number(0),
+                        "name": .string("Gail Hoover")
+                      ]),
+                      .object([
+                        "id": .number(1),
+                        "name": .string("Luisa Galloway")
+                      ]),
+                      .object([
+                        "id": .number(2),
+                        "name": .string("Turner Strickland")
+                      ])
+                    ]),
+                    "greeting": .string("Hello, Rosales! You have 7 unread messages."),
+                    "favoriteFruit": .string("apple")
+                ])
+            ]))
+        
+        if #available(OSX 10.13, iOS 11.0, *) {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .sortedKeys
+            let jsonData = try! encoder.encode(jsonValue)
+            let jsonEncodedString = String(data: jsonData, encoding: .utf8)!
+            // To compare against our original string we must first format it correctly.
+            // Pass it through old JSON encode/decode to do so.
+            let data = jsonString.data(using: .utf8)
+            let jsonObj = try! JSONSerialization.jsonObject(with: data!, options: [])
+            let jsonFormattedData = try! JSONSerialization.data(withJSONObject: jsonObj, options: [.sortedKeys])
+            let jsonFormattedString = String(data: jsonFormattedData, encoding: .utf8)!
+            
+            XCTAssertEqual(jsonEncodedString, jsonFormattedString)
+        } else {
+            XCTFail(".sortedKeys only available in MacOS 10.13+, iOS 11.0+")
+        }
+    }
+    
+    func testDecodeToStruct() {
+        let jsonValue = JSONValue.array([
+            .object([
+                "_id": .string("5d140a3fb5bbd5eaa41b512e"),
+                "guid": .string("9b0f3717-2f21-4a81-8902-92d2278a92f0"),
+                "isActive": .bool(false),
+                "age": .number(30),
+                "name": .object([
+                    "first": .string("Rosales"),
+                    "last": .string("Mcintosh")
+                    ]),
+                "company": JSONValue.null,
+                "latitude": .string("-58.182284"),
+                "longitude": .string("-159.420718"),
+                "tags": .array([
+                    .string("aute"),
+                    .string("aute")
+                    ])
+            ])
+        ])
+        
+        struct Output: Decodable, Equatable {
+            let _id: String
+            let guid: String
+            let isActive: Bool
+            let age: Int
+            let name: [String: String]
+            let company: String?
+            let latitude: String
+            let longitude: String
+            let tags: [String]
+        }
+        
+        let output: Array<Output> = try! jsonValue.decode()
+        XCTAssertEqual(
+            output,
+            [
+                Output(_id: "5d140a3fb5bbd5eaa41b512e",
+                       guid: "9b0f3717-2f21-4a81-8902-92d2278a92f0",
+                       isActive: false,
+                       age: 30,
+                       name: [
+                        "first": "Rosales",
+                        "last": "Mcintosh"
+                    ],
+                       company: nil,
+                       latitude: "-58.182284",
+                       longitude: "-159.420718",
+                       tags: [
+                        "aute",
+                        "aute"
+                    ])
+            ])
+    }
+    
+    func testMissingDataFailsDecoding() {
+        let jsonValue = JSONValue.object(["something": .string("unnecessary")])
+        
+        struct Output: Decodable, Encodable {
+            let somethingNecessary: Bool
+        }
+        XCTAssertThrowsError(try jsonValue.decode() as Output)
+    }
+    
     // MARK: - Arrays
     
     func testArrayToFromJSONConvertsProperly() {
