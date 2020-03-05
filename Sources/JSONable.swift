@@ -91,7 +91,10 @@ extension Double: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Double? {
         switch x {
         case let .number(n):
-            return n.asNSNumber.doubleValue
+            switch n {
+            case .int(let i): return Double(i)
+            case .fraction(let f): return f
+            }
         case let .string(s):
             return Double(s)
         default:
