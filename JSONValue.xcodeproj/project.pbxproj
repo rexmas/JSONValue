@@ -127,8 +127,8 @@
       "OBJ_16" = {
          isa = "PBXGroup";
          children = (
-            "JSONValue::JSONValueTests::Product",
-            "JSONValue::JSONValueRX::Product"
+            "JSONValue::JSONValueRX::Product",
+            "JSONValue::JSONValueTests::Product"
          );
          name = "Products";
          path = "";

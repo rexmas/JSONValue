@@ -18,17 +18,10 @@ public enum JSONNumber: Hashable {
     case int(Int64)
     case fraction(Double)
     
-    public var intValue: Int? {
+    public var asNSNumber: NSNumber {
         switch self {
-        case .int(let i): return Int(exactly: i)
-        case .fraction(let f): return Int(exactly: f)
-        }
-    }
-    
-    public var doubleValue: Double {
-        switch self {
-        case .int(let i): return Double(i)
-        case .fraction(let f): return f
+        case .int(let i): return NSNumber(value: i)
+        case .fraction(let f): return NSNumber(value: f)
         }
     }
 }
