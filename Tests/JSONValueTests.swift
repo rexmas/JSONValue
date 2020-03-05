@@ -27,16 +27,16 @@ class JSONValueTests: XCTestCase {
     }
     
     func testArraySubscripting() {
-        let arr = [ 1, "derp", [3, 5] ] as [Any]
+        let arr = [ 1 as Int, "derp", [3, 5.0] ] as [Any]
         var jObj = try! JSONValue(array: arr)
         
-        XCTAssertEqual(jObj[0], JSONValue.number(1))
+        XCTAssertEqual(jObj[0], JSONValue.number(.int(1)))
         XCTAssertEqual(jObj[1], JSONValue.string("derp"))
-        XCTAssertEqual(jObj[2]?[1], JSONValue.number(5))
+        XCTAssertEqual(jObj[2]?[1], JSONValue.number(.fraction(5)))
         
         jObj[2] = JSONValue.string("yo")
         
-        XCTAssertEqual(jObj[0], JSONValue.number(1))
+        XCTAssertEqual(jObj[0], JSONValue.number(.int(1)))
         XCTAssertEqual(jObj[1], JSONValue.string("derp"))
         XCTAssertEqual(jObj[2], JSONValue.string("yo"))
         
@@ -69,19 +69,19 @@ class JSONValueTests: XCTestCase {
         let jBool = JSONValue.bool(false)
         XCTAssertEqual(jBool.hashValue, jBool.hashValue)
         
-        let jNum = JSONValue.number(3.0)
+        let jNum = JSONValue.number(.fraction(3.0))
         XCTAssertEqual(jNum.hashValue, jNum.hashValue)
         
         let jString = JSONValue.string("some json")
         XCTAssertEqual(jString.hashValue, jString.hashValue)
         
         let jDict = JSONValue.object([
-            "a string" : .number(6.0),
+            "a string" : .number(.fraction(6.0)),
             "another" : .null
             ])
         XCTAssertEqual(jDict.hashValue, jDict.hashValue)
         
-        let jArray = JSONValue.array([ .number(6.0), .string("yo"), jDict ])
+        let jArray = JSONValue.array([ .number(.fraction(6.0)), .string("yo"), jDict ])
         XCTAssertEqual(jArray.hashValue, jArray.hashValue)
     }
     
@@ -108,7 +108,7 @@ class JSONValueTests: XCTestCase {
     func test0NumberFalseAndNullHashesAreUnique() {
         let jNull = JSONValue.null
         let jBool = JSONValue.bool(false)
-        let jNum = JSONValue.number(0.0)
+        let jNum = JSONValue.number(.fraction(0.0))
         let jString = JSONValue.string("\0")
         
         XCTAssertNotEqual(jNull.hashValue, jBool.hashValue)
@@ -136,6 +136,7 @@ class JSONValueTests: XCTestCase {
             "guid": "9b0f3717-2f21-4a81-8902-92d2278a92f0",
             "isActive": false,
             "age": 30,
+            "shares": 5.51,
             "name": {
               "first": "Rosales",
               "last": "Mcintosh"
@@ -178,7 +179,8 @@ class JSONValueTests: XCTestCase {
                 "_id": .string("5d140a3fb5bbd5eaa41b512e"),
                 "guid": .string("9b0f3717-2f21-4a81-8902-92d2278a92f0"),
                 "isActive": .bool(false),
-                "age": .number(30),
+                "age": .number(.int(30)),
+                "shares": .number(.fraction(5.51)),
                 "name": .object([
                     "first": .string("Rosales"),
                     "last": .string("Mcintosh")
@@ -191,22 +193,22 @@ class JSONValueTests: XCTestCase {
                       .string("aute")
                     ]),
                     "range": .array([
-                      .number(0),
-                      .number(1),
-                      .number(2),
-                      .number(3)
+                        .number(.int(0)),
+                        .number(.int(1)),
+                        .number(.int(2)),
+                        .number(.int(3))
                     ]),
                     "friends": .array([
                       .object([
-                        "id": .number(0),
+                        "id": .number(.int(0)),
                         "name": .string("Gail Hoover")
                       ]),
                       .object([
-                        "id": .number(1),
+                        "id": .number(.int(1)),
                         "name": .string("Luisa Galloway")
                       ]),
                       .object([
-                        "id": .number(2),
+                        "id": .number(.int(2)),
                         "name": .string("Turner Strickland")
                       ])
                     ]),
@@ -236,7 +238,7 @@ class JSONValueTests: XCTestCase {
                 "_id": .string("5d140a3fb5bbd5eaa41b512e"),
                 "guid": .string("9b0f3717-2f21-4a81-8902-92d2278a92f0"),
                 "isActive": .bool(false),
-                "age": .number(30),
+                "age": .number(.int(30)),
                 "name": .object([
                     "first": .string("Rosales"),
                     "last": .string("Mcintosh")
@@ -299,11 +301,11 @@ class JSONValueTests: XCTestCase {
     func testArrayToFromJSONConvertsProperly() {
         let array = [ 987 as Int, 65.4192387490172384970123894 ] as [Any]
         let json = try! JSONValue(object: array)
-        XCTAssertEqual(json[0], JSONValue.number(987.0))
-        XCTAssertEqual(json[1], JSONValue.number(65.4192387490172384970123894))
+        XCTAssertEqual(json[0], JSONValue.number(.int(987)))
+        XCTAssertEqual(json[1], JSONValue.number(.fraction(65.4192387490172384970123894)))
         let from = Array<Any>.fromJSON(json)!
         print(from)
-        XCTAssertEqual(from[0] as! Double, Double(array[0] as! Int))
+        XCTAssertEqual(from[0] as! Int, array[0] as! Int)
         XCTAssertEqual(from[1] as! Double, array[1] as! Double)
     }
     
@@ -318,6 +320,20 @@ class JSONValueTests: XCTestCase {
         let array: [Int] = [987, 45, 1235]
         let json = try! JSONValue(object: array)
         let result = Array<Int8>.fromJSON(json)
+        XCTAssertNil(result)
+    }
+    
+    func testArrayOfIntAndIntegerDoubleLikeIntsJSONablesProperly() {
+        let array = [987, 45, 1235.0]
+        let json = try! JSONValue(object: array)
+        let result = Array<Int64>.fromJSON(json)
+        XCTAssertEqual([987, 45, 1235], result)
+    }
+    
+    func testArrayOfIntAndFractionalDoubleJSONablesProperly() {
+        let array = [987, 45, 1235.1]
+        let json = try! JSONValue(object: array)
+        let result = Array<Int64>.fromJSON(json)
         XCTAssertNil(result)
     }
     
@@ -362,7 +378,7 @@ class JSONValueTests: XCTestCase {
     
     func testJsonNumberCoercesFromNSNumber() {
         let n: NSNumber = Double(1.2) as NSNumber
-        XCTAssertEqual(NSNumber.toJSON(n), JSONValue.number(1.2))
+        XCTAssertEqual(NSNumber.toJSON(n), JSONValue.number(.fraction(1.2)))
     }
     
     // MARK: - NSDate
@@ -436,4 +452,21 @@ class JSONValueTests: XCTestCase {
         ("testJsonStringToNSDate", testJsonStringToNSDate),
         ("testsEncodeAsString", testsEncodeAsString),
         ]
+}
+
+class UtilitiesTests: XCTestCase {
+    func testIsBool() {
+        XCTAssertTrue((true as NSNumber).isBool)
+        XCTAssertTrue((false as NSNumber).isBool)
+        XCTAssertFalse((1 as NSNumber).isBool)
+        XCTAssertFalse((1.0 as NSNumber).isBool)
+        XCTAssertFalse((0 as NSNumber).isBool)
+        XCTAssertFalse((0.0 as NSNumber).isBool)
+    }
+    
+    func testIsReal() {
+        XCTAssertTrue((1.0 as NSNumber).isReal)
+        XCTAssertTrue((1.1 as NSNumber).isReal)
+        XCTAssertFalse((1 as NSNumber).isReal)
+    }
 }

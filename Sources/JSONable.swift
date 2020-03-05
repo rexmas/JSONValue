@@ -34,160 +34,9 @@ extension Dictionary: JSONable {
     }
 }
 
-protocol AcceptsDouble {
-    init(_ other: Double)
-    static var maxDouble: Double { get }
-    static var minDouble: Double { get }
-}
-
-extension AcceptsDouble {
-    init?(safe double: Double) {
-        guard double > Self.minDouble && double < Self.maxDouble else {
-            return nil
-        }
-        self = Self(double)
-    }
-}
-
-extension Int: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension Int8: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension Int16: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension Int32: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension Int64: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension UInt: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension UInt8: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension UInt16: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension UInt32: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-extension UInt64: AcceptsDouble {
-    static var maxDouble: Double {
-        return Double(self.max)
-    }
-    static var minDouble: Double {
-        return Double(self.min)
-    }
-}
-
-struct ArrayMappingHelper<T: AcceptsDouble> {
-    func map(arr: [JSONValue]) -> [Any]? {
-        return try? arr.map {
-            guard case let val as Double = $0.values() else {
-                throw NSError()
-            }
-            guard let result = T(safe: val) else {
-                throw NSError()
-            }
-            return result
-        }
-    }
-}
-
 extension Array: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Array? {
-        switch x {
-        case let .array(xs):
-            // TODO: Swift may have fixed integer overflow issues. Consider removing.
-            switch Element.self {
-            case is Int.Type:
-                let help = ArrayMappingHelper<Int>()
-                return help.map(arr: xs) as? Array
-            case is Int8.Type:
-                let help = ArrayMappingHelper<Int8>()
-                return help.map(arr: xs) as? Array
-            case is Int16.Type:
-                let help = ArrayMappingHelper<Int16>()
-                return help.map(arr: xs) as? Array
-            case is Int32.Type:
-                let help = ArrayMappingHelper<Int32>()
-                return help.map(arr: xs) as? Array
-            case is Int64.Type:
-                let help = ArrayMappingHelper<Int64>()
-                return help.map(arr: xs) as? Array
-            case is UInt.Type:
-                let help = ArrayMappingHelper<Int>()
-                return help.map(arr: xs) as? Array
-            case is UInt8.Type:
-                let help = ArrayMappingHelper<Int8>()
-                return help.map(arr: xs) as? Array
-            case is UInt16.Type:
-                let help = ArrayMappingHelper<Int16>()
-                return help.map(arr: xs) as? Array
-            case is UInt32.Type:
-                let help = ArrayMappingHelper<Int32>()
-                return help.map(arr: xs) as? Array
-            case is UInt64.Type:
-                let help = ArrayMappingHelper<Int64>()
-                return help.map(arr: xs) as? Array
-                
-            default:
-                return x.values() as? Array
-            }
-            
-        default:
-            return nil
-        }
+        return x.values() as? Array
     }
     
     public static func toJSON(_ x: Array) -> JSONValue {
@@ -204,9 +53,9 @@ extension Bool: JSONable {
         switch x {
         case let .bool(n):
             return n
-        case .number(0):
+        case .number(.int(0)):
             return false
-        case .number(1):
+        case .number(.int(1)):
             return true
         default:
             return nil
@@ -222,7 +71,10 @@ extension Int: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Int? {
         switch x {
         case let .number(n):
-            return Int(n)
+            switch n {
+            case .int(let i): return Int(exactly: i)
+            case .fraction(let f): return Int(exactly: f)
+            }
         case let .string(s):
             return Int(s)
         default:
@@ -231,7 +83,7 @@ extension Int: JSONable {
     }
     
     public static func toJSON(_ xs: Int) -> JSONValue {
-        return JSONValue.number(Double(xs))
+        return JSONValue.number(.int(Int64(xs)))
     }
 }
 
@@ -239,7 +91,10 @@ extension Double: JSONable {
     public static func fromJSON(_ x: JSONValue) -> Double? {
         switch x {
         case let .number(n):
-            return n
+            switch n {
+            case .int(let i): return Double(i)
+            case .fraction(let f): return f
+            }
         case let .string(s):
             return Double(s)
         default:
@@ -248,7 +103,7 @@ extension Double: JSONable {
     }
     
     public static func toJSON(_ xs: Double) -> JSONValue {
-        return JSONValue.number(xs)
+        return JSONValue.number(.fraction(xs))
     }
 }
 
@@ -256,7 +111,10 @@ extension NSNumber: JSONable {
     public class func fromJSON(_ x: JSONValue) -> NSNumber? {
         switch x {
         case let .number(n):
-            return NSNumber(value: n as Double)
+            switch n {
+            case .int(let i): return NSNumber(value: i)
+            case .fraction(let f): return NSNumber(value: f)
+            }
         case let .bool(b):
             return NSNumber(value: b)
         case let .string(s):
@@ -274,7 +132,7 @@ extension NSNumber: JSONable {
             return JSONValue.bool(x.boolValue)
         }
         else {
-            return JSONValue.number(x.doubleValue)
+            return JSONValue.number(.fraction(x.doubleValue))
         }
     }
 }
