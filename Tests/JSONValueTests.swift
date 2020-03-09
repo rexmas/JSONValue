@@ -346,6 +346,10 @@ class JSONValueTests: XCTestCase {
         XCTAssertNil(Int.fromJSON(garbage))
     }
     
+    func testPrintingJsonNumberAsInt() {
+        XCTAssertEqual("\(JSONNumber.int(1))", "1")
+    }
+    
     // MARK: - Double
     
     func testJsonStringCoercesToDouble() {
@@ -355,6 +359,10 @@ class JSONValueTests: XCTestCase {
         XCTAssertEqual(Double.fromJSON(json2), 1.4)
         let garbage = JSONValue.string("a")
         XCTAssertNil(Double.fromJSON(garbage))
+    }
+    
+    func testPrintingJsonNumberAsFraction() {
+        XCTAssertEqual("\(JSONNumber.fraction(1.0))", "1.0")
     }
     
     // MARK: - NSNumber
@@ -468,5 +476,10 @@ class UtilitiesTests: XCTestCase {
         XCTAssertTrue((1.0 as NSNumber).isReal)
         XCTAssertTrue((1.1 as NSNumber).isReal)
         XCTAssertFalse((1 as NSNumber).isReal)
+    }
+    
+    func testAsJsonNumber() {
+        XCTAssertEqual(NSNumber(1).asJSONNumber, JSONNumber.int(1))
+        XCTAssertEqual(NSNumber(1.0).asJSONNumber, JSONNumber.fraction(1.0))
     }
 }

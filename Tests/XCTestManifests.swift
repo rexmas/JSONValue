@@ -26,6 +26,8 @@ extension JSONValueTests {
         ("testJsonStringCoercesToNSNumber", testJsonStringCoercesToNSNumber),
         ("testJsonStringToNSDate", testJsonStringToNSDate),
         ("testMissingDataFailsDecoding", testMissingDataFailsDecoding),
+        ("testPrintingJsonNumberAsFraction", testPrintingJsonNumberAsFraction),
+        ("testPrintingJsonNumberAsInt", testPrintingJsonNumberAsInt),
         ("testsEncodeAsString", testsEncodeAsString),
         ("testSubscriptingReturnsNilIfAttributeIsNonExistent", testSubscriptingReturnsNilIfAttributeIsNonExistent),
         ("testSubscriptingWithDotsUsesComponentsForTraversal", testSubscriptingWithDotsUsesComponentsForTraversal),
@@ -40,6 +42,7 @@ extension UtilitiesTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__UtilitiesTests = [
+        ("testAsJsonNumber", testAsJsonNumber),
         ("testIsBool", testIsBool),
         ("testIsReal", testIsReal),
     ]
