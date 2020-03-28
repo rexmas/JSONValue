@@ -26,7 +26,7 @@ public enum JSONNumber: Hashable {
 
 ### Supported Platforms
 
-iOS 8.0+
+iOS 10.0+
 MacOS 10.12+
 
 ### Supported Languages
@@ -38,7 +38,7 @@ Swift 5.0+
 ### CocoaPods
 
 ```
-platform :ios, '8.0'
+platform :ios, '10.0'
 use_frameworks!
 
 pod 'JSONValueRX'
