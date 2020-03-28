@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode11.3
+osx_image: xcode11.4
 xcode_workspace: JSONValue.xcodeproj
 xcode_scheme: JSONValue-Package
 xcode_sdk: iphonesimulator12.2
