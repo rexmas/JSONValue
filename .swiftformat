@@ -1,0 +1,5 @@
+--disable redundantPattern, consecutiveSpaces
+--elseposition next-line
+--self insert
+--patternlet inline
+--trimwhitespace nonblank-lines
