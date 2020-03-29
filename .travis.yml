@@ -4,7 +4,7 @@ xcode_workspace: JSONValue.xcodeproj
 xcode_scheme: JSONValue-Package
 xcode_sdk: iphonesimulator12.2
 script:
- - set -o pipefail
- - xcodebuild -version
- - xcodebuild -showsdks
- - xcodebuild -project JSONValue.xcodeproj -scheme JSONValue-Package -sdk iphonesimulator -destination "OS=12.2,name=iPhone 8" ONLY_ACTIVE_ARCH=NO build test
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+  - xcodebuild -project JSONValue.xcodeproj -scheme JSONValue-Package -sdk iphonesimulator -destination "OS=12.2,name=iPhone 8" ONLY_ACTIVE_ARCH=NO build test

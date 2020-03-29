@@ -1,33 +1,32 @@
-import XCTest
 import JSONValueRX
+import XCTest
 
 class JSONValueTests: XCTestCase {
-    
     // MARK: - Subscripting
     
     func testSubscriptingWithDotsUsesComponentsForTraversal() {
-        let dict = [ "derp" : [ "blerp" : [ "a", "b" ] ] ]
+        let dict = ["derp": ["blerp": ["a", "b"]]]
         let jObj = try! JSONValue(dict: dict)
         
         XCTAssertEqual(jObj["derp.blerp"], try! JSONValue(array: ["a", "b"]))
     }
     
     func testSubscriptingWithDotsUsesWholeStringIfComponentsFail() {
-        let dict = [ "derp.blerp" : [ "a", "b" ] ]
+        let dict = ["derp.blerp": ["a", "b"]]
         let jObj = try! JSONValue(dict: dict)
         
         XCTAssertEqual(jObj["derp.blerp"], try! JSONValue(array: ["a", "b"]))
     }
     
     func testSubscriptingReturnsNilIfAttributeIsNonExistent() {
-        let dict = [ "derp" : [ "blerp" : [ "a", "b" ] ] ]
+        let dict = ["derp": ["blerp": ["a", "b"]]]
         let jObj = try! JSONValue(dict: dict)
         
         XCTAssertNil(jObj["herp"])
     }
     
     func testArraySubscripting() {
-        let arr = [ 1 as Int, "derp", [3, 5.0] ] as [Any]
+        let arr = [1 as Int, "derp", [3, 5.0]] as [Any]
         var jObj = try! JSONValue(array: arr)
         
         XCTAssertEqual(jObj[0], JSONValue.number(.int(1)))
@@ -47,7 +46,7 @@ class JSONValueTests: XCTestCase {
     }
     
     func testEarlyNullReturnsNullWhenSubscriptingKeyPath() {
-        let dict = [ "derp" : NSNull() ]
+        let dict = ["derp": NSNull()]
         let jObj = try! JSONValue(dict: dict)
         
         XCTAssertEqual(jObj["derp.blerp"], JSONValue.null)
@@ -62,7 +61,6 @@ class JSONValueTests: XCTestCase {
     }
     
     func testHashesAreConsistent() {
-        
         let jNull = JSONValue.null
         XCTAssertEqual(jNull.hashValue, jNull.hashValue)
         
@@ -76,12 +74,12 @@ class JSONValueTests: XCTestCase {
         XCTAssertEqual(jString.hashValue, jString.hashValue)
         
         let jDict = JSONValue.object([
-            "a string" : .number(.fraction(6.0)),
-            "another" : .null
-            ])
+            "a string": .number(.fraction(6.0)),
+            "another": .null,
+        ])
         XCTAssertEqual(jDict.hashValue, jDict.hashValue)
         
-        let jArray = JSONValue.array([ .number(.fraction(6.0)), .string("yo"), jDict ])
+        let jArray = JSONValue.array([.number(.fraction(6.0)), .string("yo"), jDict])
         XCTAssertEqual(jArray.hashValue, jArray.hashValue)
     }
     
@@ -89,8 +87,8 @@ class JSONValueTests: XCTestCase {
         let string1 = "blah"
         let string2 = "derp"
         
-        let obj1 = JSONValue.object([ string1 : .string(string2) ])
-        let obj2 = JSONValue.object([ string2 : .string(string1) ])
+        let obj1 = JSONValue.object([string1: .string(string2)])
+        let obj2 = JSONValue.object([string2: .string(string1)])
         
         XCTAssertNotEqual(obj1.hashValue, obj2.hashValue)
     }
@@ -99,8 +97,8 @@ class JSONValueTests: XCTestCase {
         let string1 = "blah"
         let string2 = "derp"
         
-        let arr1 = JSONValue.array([ .string(string1), .string(string2) ])
-        let arr2 = JSONValue.array([ .string(string2), .string(string1) ])
+        let arr1 = JSONValue.array([.string(string1), .string(string2)])
+        let arr2 = JSONValue.array([.string(string2), .string(string1)])
         
         XCTAssertNotEqual(arr1.hashValue, arr2.hashValue)
     }
@@ -183,40 +181,39 @@ class JSONValueTests: XCTestCase {
                 "shares": .number(.fraction(5.51)),
                 "name": .object([
                     "first": .string("Rosales"),
-                    "last": .string("Mcintosh")
-                    ]),
-                    "company": JSONValue.null,
-                    "latitude": .string("-58.182284"),
-                    "longitude": .string("-159.420718"),
-                    "tags": .array([
-                      .string("aute"),
-                      .string("aute")
-                    ]),
-                    "range": .array([
-                        .number(.int(0)),
-                        .number(.int(1)),
-                        .number(.int(2)),
-                        .number(.int(3))
-                    ]),
-                    "friends": .array([
-                      .object([
+                    "last": .string("Mcintosh"),
+                ]),
+                "company": JSONValue.null,
+                "latitude": .string("-58.182284"),
+                "longitude": .string("-159.420718"),
+                "tags": .array([
+                    .string("aute"),
+                    .string("aute"),
+                ]),
+                "range": .array([
+                    .number(.int(0)),
+                    .number(.int(1)),
+                    .number(.int(2)),
+                    .number(.int(3)),
+                ]),
+                "friends": .array([
+                    .object([
                         "id": .number(.int(0)),
-                        "name": .string("Gail Hoover")
-                      ]),
-                      .object([
-                        "id": .number(.int(1)),
-                        "name": .string("Luisa Galloway")
-                      ]),
-                      .object([
-                        "id": .number(.int(2)),
-                        "name": .string("Turner Strickland")
-                      ])
+                        "name": .string("Gail Hoover"),
                     ]),
-                    "greeting": .string("Hello, Rosales! You have 7 unread messages."),
-                    "favoriteFruit": .string("apple")
-                ])
-            ]))
-        
+                    .object([
+                        "id": .number(.int(1)),
+                        "name": .string("Luisa Galloway"),
+                    ]),
+                    .object([
+                        "id": .number(.int(2)),
+                        "name": .string("Turner Strickland"),
+                    ]),
+                ]),
+                "greeting": .string("Hello, Rosales! You have 7 unread messages."),
+                "favoriteFruit": .string("apple"),
+            ]),
+        ]))
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .sortedKeys
@@ -241,16 +238,16 @@ class JSONValueTests: XCTestCase {
                 "age": .number(.int(30)),
                 "name": .object([
                     "first": .string("Rosales"),
-                    "last": .string("Mcintosh")
-                    ]),
+                    "last": .string("Mcintosh"),
+                ]),
                 "company": JSONValue.null,
                 "latitude": .string("-58.182284"),
                 "longitude": .string("-159.420718"),
                 "tags": .array([
                     .string("aute"),
-                    .string("aute")
-                    ])
-            ])
+                    .string("aute"),
+                ]),
+            ]),
         ])
         
         struct Output: Decodable, Equatable {
@@ -265,7 +262,7 @@ class JSONValueTests: XCTestCase {
             let tags: [String]
         }
         
-        let output: Array<Output> = try! jsonValue.decode()
+        let output: [Output] = try! jsonValue.decode()
         XCTAssertEqual(
             output,
             [
@@ -274,17 +271,18 @@ class JSONValueTests: XCTestCase {
                        isActive: false,
                        age: 30,
                        name: [
-                        "first": "Rosales",
-                        "last": "Mcintosh"
-                    ],
+                           "first": "Rosales",
+                           "last": "Mcintosh",
+                       ],
                        company: nil,
                        latitude: "-58.182284",
                        longitude: "-159.420718",
                        tags: [
-                        "aute",
-                        "aute"
-                    ])
-            ])
+                           "aute",
+                           "aute",
+                       ]),
+            ]
+        )
     }
     
     func testMissingDataFailsDecoding() {
@@ -299,7 +297,7 @@ class JSONValueTests: XCTestCase {
     // MARK: - Arrays
     
     func testArrayToFromJSONConvertsProperly() {
-        let array = [ 987 as Int, 65.4192387490172384970123894 ] as [Any]
+        let array = [987 as Int, 65.4192387490172384970123894] as [Any]
         let json = try! JSONValue(object: array)
         XCTAssertEqual(json[0], JSONValue.number(.int(987)))
         XCTAssertEqual(json[1], JSONValue.number(.fraction(65.4192387490172384970123894)))
@@ -394,12 +392,12 @@ class JSONValueTests: XCTestCase {
     func testJsonStringToNSDate() {
         let val = "2017-02-01T05:33:40Z"
         let json = JSONValue.string(val)
-        let result = Date.init(isoString: val)! as NSDate
+        let result = Date(isoString: val)! as NSDate
         XCTAssertEqual(NSDate.fromJSON(json), result)
         
         let valMilli = "2017-02-01T05:33:40.111Z"
         let jsonMilli = JSONValue.string(valMilli)
-        let resultMilli = Date.init(isoString: valMilli)! as NSDate
+        let resultMilli = Date(isoString: valMilli)! as NSDate
         XCTAssertEqual(NSDate.fromJSON(jsonMilli), resultMilli)
         
         let garbage = JSONValue.string("a")
@@ -409,7 +407,7 @@ class JSONValueTests: XCTestCase {
     // MARK: - String encoding
     
     func testsEncodeAsString() {
-        let dict = [ "derp" : [ "blerp" : [ "a", "b" ] ] ]
+        let dict = ["derp": ["blerp": ["a", "b"]]]
         let jObj = try! JSONValue(dict: dict)
         let jString = try! jObj.encodeAsString()
         XCTAssertEqual(jString, "{\"derp\":{\"blerp\":[\"a\",\"b\"]}}")
@@ -432,7 +430,7 @@ class JSONValueTests: XCTestCase {
         let thumbUp = "\u{1f44d}"
         XCTAssertEqual(try! thumbUp.jsonEncodedString(), "\"👍\"")
         
-        let complex = ["1\\\r" : ["[derp\n]👍"]]
+        let complex = ["1\\\r": ["[derp\n]👍"]]
         let json = try! JSONValue(dict: complex)
         let string = try! json.encodeAsString()
         XCTAssertEqual(string, "{\"1\\\\\\r\":[\"[derp\\n]👍\"]}")
@@ -459,7 +457,7 @@ class JSONValueTests: XCTestCase {
         ("testJsonNumberCoercesFromNSNumber", testJsonNumberCoercesFromNSNumber),
         ("testJsonStringToNSDate", testJsonStringToNSDate),
         ("testsEncodeAsString", testsEncodeAsString),
-        ]
+    ]
 }
 
 class UtilitiesTests: XCTestCase {
