@@ -1,4 +1,4 @@
-// swift-tools-version:5.3.0
+// swift-tools-version:5.8.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "JSONValue",
     platforms: [
-        .macOS(.v10_12),
-        .iOS(.v10),
+        .macOS(.v10_13),
+        .iOS(.v11),
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
