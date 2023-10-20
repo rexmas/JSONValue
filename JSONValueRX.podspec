@@ -8,14 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = "JSONValueRX"
-  s.version          = "7.2.0"
+  s.version          = "8.0.0"
   s.summary          = "Simple Swift JSON representation supporting subscripting and pattern matching."
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
   Simple Swift JSON representation supporting subscripting and pattern matching. JSONValue uses an algebraic datatype representation of JSON for type safety and pattern matching.
                        DESC
@@ -25,10 +20,10 @@ Pod::Spec.new do |s|
   s.author           = { "rexmas" => "rex.fenley@gmail.com" }
   s.source           = { :git => "https://github.com/rexmas/JSONValue.git", :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
-  s.osx.deployment_target = '10.12'
+  s.ios.deployment_target = '12.0'
+  s.osx.deployment_target = '10.13'
 
-  s.swift_version = '5.3.2'
+  s.swift_version = '5.9.0'
   s.requires_arc = true
 
   s.source_files = 'Sources/**/*.swift'
